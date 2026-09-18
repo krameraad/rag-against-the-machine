@@ -1,8 +1,3 @@
-PROJECT := $(notdir $(CURDIR))
-UV_PROJECT_ENVIRONMENT := /sgoinfre/$(USER)/.uv-venv/$(PROJECT)
-export UV_PROJECT_ENVIRONMENT
-
-
 install:
 	uv sync --all-groups
 
