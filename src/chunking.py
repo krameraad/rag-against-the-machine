@@ -4,14 +4,23 @@ import re
 from .data_models import MinimalSource
 
 
+PYTHON_RE = re.compile(
+    r"^[ \t]*(?:(?:async[ \t]+)?def|class)[ \t]+.+$",
+    re.MULTILINE,
+)
+
+
 def chunk_py(max_chunk_size: int, path: Path) -> list[MinimalSource]:
     return ['py']
 
 
-HEADER_RE = re.compile(
-    r"^(?P<header>#{1,6})[ \t]+(?P<title>.+?)[ \t]*$",
-    re.MULTILINE,
-)
+# HEADER_RE = re.compile(
+#     r"^(?P<header>#{1,6})[ \t]+(?P<title>.+?)[ \t]*$",
+#     re.MULTILINE,
+# )
+
+
+HEADER_RE = re.compile(r"^#{1,6}[ \t]+.+$", re.MULTILINE)
 
 
 def chunk_md(max_chunk_size: int, path: Path) -> list[MinimalSource]:
