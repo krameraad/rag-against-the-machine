@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from pprint import pprint
 
-from .chunking import CHUNKING_STRATEGIES
+from .chunking import chunk
 from .data_models import MinimalSource
 
 
@@ -13,9 +13,7 @@ def index(max_chunk_size: int) -> list[MinimalSource]:
             if file.is_dir():
                 result.extend(walk(max_chunk_size, file))
             else:
-                if file.suffix in {'.md'}:
-                    result.extend(CHUNKING_STRATEGIES[file.suffix](
-                        max_chunk_size, file))
+                result.extend(chunk(file, file.suffix, max_chunk_size))
         return result
 
     result = walk(max_chunk_size, Path('data/raw'))
